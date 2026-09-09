@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice — AI StudyMate</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <script>document.write(renderSidebar('practice.html'))</script>
+
+    <main class="main-content">
+      <header class="page-header">
+        <h1>Practice Questions</h1>
+        <p>Work through questions with step-by-step solutions and AI hints</p>
+      </header>
+
+      <div class="page-body">
+        <div class="filter-bar">
+          <select class="select-input" id="paper-filter">
+            <option value="">All Papers</option>
+          </select>
+          <select class="select-input" id="difficulty-filter">
+            <option value="">All Difficulties</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div id="practice-container"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/practice.js"></script>
+</body>
+</html>

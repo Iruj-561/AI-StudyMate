@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tutor — AI StudyMate</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body data-page="chat">
+
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">📐</div>
+          AI StudyMate
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Main</div>
+          <a href="dashboard.html" class="nav-item" data-page="dashboard"><span>🏠</span> Dashboard</a>
+          <a href="topics.html" class="nav-item" data-page="topics"><span>📚</span> Syllabus Topics</a>
+          <a href="ai-chat.html" class="nav-item" data-page="chat"><span>🤖</span> AI Tutor</a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">Practice</div>
+          <a href="practice.html" class="nav-item" data-page="practice"><span>📝</span> Practice Questions</a>
+          <a href="quiz.html" class="nav-item" data-page="quiz"><span>⚡</span> Quick Quiz</a>
+          <a href="mock-exam.html" class="nav-item" data-page="mock-exam"><span>📋</span> Mock Exams</a>
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="user-avatar">S</div>
+          <div class="user-info">
+            <div class="user-name">Student</div>
+            <div class="user-plan">Free Plan</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="flex items-center gap-3">
+          <button class="sidebar-toggle" aria-label="Toggle menu">☰</button>
+          <h1 class="page-title">AI Tutor</h1>
+        </div>
+      </header>
+
+      <div class="page-content" style="padding:0">
+        <div class="chat-layout">
+          <!-- Chat history sidebar -->
+          <div class="chat-sidebar">
+            <button class="btn btn-primary btn-sm" style="width:100%;margin-bottom:16px">+ New Chat</button>
+            <div class="chat-history-item active">Quadratics help</div>
+            <div class="chat-history-item">Integration by parts</div>
+            <div class="chat-history-item">Vectors question</div>
+            <div class="chat-history-item">Probability basics</div>
+          </div>
+
+          <!-- Chat main -->
+          <div class="chat-main">
+            <div class="chat-messages" id="chat-messages">
+              <div class="message ai">
+                <div class="message-avatar">🤖</div>
+                <div class="message-bubble">
+                  Hi! I'm your AI StudyMate tutor for Cambridge Mathematics 9709. I can help you with:
+                  <br><br>
+                  • Explaining concepts step-by-step<br>
+                  • Working through practice questions<br>
+                  • Exam technique and tips<br>
+                  • Any topic from P1, P2, P3, M1, or S1
+                  <br><br>
+                  What would you like to learn today?
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-input-area">
+              <div class="suggested-prompts">
+                <span class="prompt-chip">Explain integration by parts with an example</span>
+                <span class="prompt-chip">Help me understand the discriminant</span>
+                <span class="prompt-chip">What is the difference between permutations and combinations?</span>
+                <span class="prompt-chip">Walk me through a vectors question step-by-step</span>
+              </div>
+              <div class="chat-input-wrapper">
+                <textarea id="chat-input" placeholder="Ask me anything about Cambridge 9709..." rows="1"></textarea>
+                <button class="btn btn-primary btn-sm" id="chat-send">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

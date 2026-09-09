@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — AI StudyMate</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <script>document.write(renderSidebar('dashboard.html'))</script>
+
+    <main class="main-content">
+      <header class="page-header">
+        <h1>Welcome back, Alex 👋</h1>
+        <p>Here's your study progress for Cambridge Mathematics 9709</p>
+      </header>
+
+      <div class="page-body">
+        <div class="grid-4 mb-2">
+          <div class="stat-card">
+            <div class="label">Overall Mastery</div>
+            <div class="value">42%</div>
+            <div class="change positive">↑ 8% this week</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Questions Done</div>
+            <div class="value">186</div>
+            <div class="change positive">↑ 24 today</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Quizzes Taken</div>
+            <div class="value">12</div>
+            <div class="change neutral">Avg score: 76%</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Study Streak</div>
+            <div class="value">7🔥</div>
+            <div class="change positive">Keep it going!</div>
+          </div>
+        </div>
+
+        <div class="grid-2 mb-2">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Paper Progress</div>
+                <div class="card-subtitle">Mastery by syllabus paper</div>
+              </div>
+            </div>
+            <div id="paper-progress"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Quick Actions</div>
+                <div class="card-subtitle">Jump into studying</div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+              <a href="ai-chat.html" class="btn btn-secondary" style="justify-content:flex-start">🤖 Ask AI Tutor</a>
+              <a href="practice.html" class="btn btn-secondary" style="justify-content:flex-start">✏️ Practice</a>
+              <a href="quiz.html" class="btn btn-secondary" style="justify-content:flex-start">⚡ Quick Quiz</a>
+              <a href="mock-exam.html" class="btn btn-secondary" style="justify-content:flex-start">📝 Mock Exam</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Weak Areas</div>
+                <div class="card-subtitle">Topics needing attention</div>
+              </div>
+              <a href="topics.html" class="btn btn-ghost btn-sm">View all →</a>
+            </div>
+            <div id="weak-areas"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Recent Activity</div>
+                <div class="card-subtitle">Your latest study sessions</div>
+              </div>
+            </div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon" style="background:rgba(99,102,241,0.15)">✏️</div>
+                <div class="activity-content">
+                  <div class="title">Completed 5 practice questions — Differentiation</div>
+                  <div class="time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background:rgba(34,211,238,0.15)">🤖</div>
+                <div class="activity-content">
+                  <div class="title">Asked AI about integration by parts</div>
+                  <div class="time">Yesterday</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background:rgba(249,115,22,0.15)">⚡</div>
+                <div class="activity-content">
+                  <div class="title">Quiz: Pure Maths 1 — scored 4/5</div>
+                  <div class="time">Yesterday</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon" style="background:rgba(52,211,153,0.15)">📝</div>
+                <div class="activity-content">
+                  <div class="title">Started Mock Exam Paper 1</div>
+                  <div class="time">3 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const paperProgress = document.getElementById('paper-progress');
+      paperProgress.innerHTML = SYLLABUS.papers.map(paper => {
+        const avg = Math.round(paper.topics.reduce((s, t) => s + t.mastery, 0) / paper.topics.length);
+        return `
+          <div style="margin-bottom:1.25rem">
+            <div class="progress-label">
+              <span>${paper.icon} ${paper.code}: ${paper.name}</span>
+              <span>${avg}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" data-width="${avg}%" style="width:${avg}%;background:${paper.color}"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const weakAreas = document.getElementById('weak-areas');
+      const allTopics = SYLLABUS.papers.flatMap(p =>
+        p.topics.map(t => ({ ...t, paper: p.code, color: p.color }))
+      ).sort((a, b) => a.mastery - b.mastery).slice(0, 5);
+
+      weakAreas.innerHTML = allTopics.map(t => `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 0;border-bottom:1px solid var(--border)">
+          <div>
+            <div style="font-weight:500;font-size:0.9rem">${t.name}</div>
+            <div class="text-muted" style="font-size:0.8rem">${t.paper}</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem">
+            <div class="progress-bar" style="width:80px">
+              <div class="progress-fill" data-width="${t.mastery}%" style="width:${t.mastery}%;background:${getMasteryColor(t.mastery)}"></div>
+            </div>
+            <span style="font-size:0.85rem;font-weight:600;color:${getMasteryColor(t.mastery)}">${t.mastery}%</span>
+          </div>
+        </div>
+      `).join('');
+
+      animateProgressBars();
+    });
+  </script>
+</body>
+</html>
